@@ -1,0 +1,10 @@
+set(SOURCES
+	src/InfiniteAmmo.h
+	src/Hooks.h
+	src/Scripts.h
+	src/Events.h
+	src/Settings.h
+	src/Utils.h
+	src/PCH.h
+	src/main.cpp
+)
