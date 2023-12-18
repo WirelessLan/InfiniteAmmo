@@ -13,23 +13,26 @@ namespace Utils {
 		std::uint64_t	unk30[(0x580 - 0x30) >> 3];	// 30
 	};
 
+	void AddCalcedObjectsToInventory(RE::TESObjectREFR* a_refr, RE::BSScrapArray<CALCED_OBJECT>& a_calcedObjs, bool a_isSilent, RE::TESForm* a_arg4) {
+		using func_t = void (*)(RE::TESObjectREFR*, RE::BSScrapArray<CALCED_OBJECT>&, bool, RE::TESForm*);
+		REL::Relocation<func_t> func(REL::ID(137743));
+		func(a_refr, a_calcedObjs, a_isSilent, a_arg4);
+	}
+
 	void AddItem(RE::TESObjectREFR* a_refr, RE::TESForm* a_item, std::uint32_t a_count, bool a_isSilent) {
 		if (!a_refr || !a_item || !a_count)
 			return;
 
-		RE::BSScrapArray<CALCED_OBJECT> itemArr;
+		RE::BSScrapArray<CALCED_OBJECT> calcedObjs;
 
 		CALCED_OBJECT calced_obj{ 0 };
 		calced_obj.item = a_item;
 		calced_obj.count = a_count;
 		calced_obj.unk28 = 1.0f;
 
-		itemArr.push_back(calced_obj);
+		calcedObjs.push_back(calced_obj);
 
-		using func_t = void (*)(RE::TESObjectREFR*, RE::BSScrapArray<CALCED_OBJECT>&, bool, RE::TESForm*);
-		REL::Relocation<func_t> func(REL::ID(137743));
-
-		func(a_refr, itemArr, a_isSilent, nullptr);
+		AddCalcedObjectsToInventory(a_refr, calcedObjs, a_isSilent, nullptr);
 	}
 
 	std::string Trim(const std::string& a_str) {
