@@ -1,19 +1,18 @@
-#include "Hooks.h"
 #include "Events.h"
+#include "Hooks.h"
+#include "InfiniteAmmo.h"
 #include "Scripts.h"
 #include "Settings.h"
 
-uint16_t CurrentAmmoCapacity;
-
-void OnF4SEMessage(F4SE::MessagingInterface::Message* msg) {
-	switch (msg->type) {
+void OnF4SEMessage(F4SE::MessagingInterface::Message* a_msg) {
+	switch (a_msg->type) {
 	case F4SE::MessagingInterface::kGameLoaded:
 		Hooks::Install();
 		Events::Install();
 		Settings::LoadSettings();
 		break;
 	case F4SE::MessagingInterface::kPostLoadGame:
-		CurrentAmmoCapacity = InfiniteAmmo::GetCurrentAmmoCapacity();
+		InfiniteAmmo::g_currentAmmoCapacity = InfiniteAmmo::GetCurrentAmmoCapacity();
 		break;
 	}
 }
@@ -67,7 +66,7 @@ extern "C" DLLEXPORT bool F4SEAPI F4SEPlugin_Query(const F4SE::QueryInterface * 
 	return true;
 }
 
-extern "C" DLLEXPORT bool F4SEAPI F4SEPlugin_Load(const F4SE::LoadInterface * a_f4se) {
+extern "C" DLLEXPORT bool F4SEAPI F4SEPlugin_Load(const F4SE::LoadInterface* a_f4se) {
 	F4SE::Init(a_f4se);
 
 	const F4SE::MessagingInterface* message = F4SE::GetMessagingInterface();
