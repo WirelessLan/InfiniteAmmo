@@ -14,7 +14,7 @@ Infinite Ammo Plugin for Fallout 4.
 
 # Building
 ```
-git clone https://github.com/Ryan-rsm-McKenzie/CommonLibF4
+git clone https://github.com/powerof3/CommonLibF4
 cd CommonLibF4
 git clone https://github.com/WirelessLan/InfiniteAmmo
 cd InfiniteAmmo
